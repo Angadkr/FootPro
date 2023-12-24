@@ -1,0 +1,26 @@
+<%-include('../partials/header')%>
+    <h1 class="text-center">Edit player</h1>
+    <br>
+    <br>
+    <div class="container d-flex justify-content-start">
+        <form action="/players/<%=player._id%>?_method=PATCH" method="post" novalidate class="needs-validation">
+            <div class="mb-3">
+            <label for="exampleInputName1" class="form-label">Name</label>
+            <br>
+            <input type="text" class="form-control w-100" id="exampleInputName1" value="<%=player.name%>" name="name" required>
+            <label for="exampleInputClub1" class="form-label">Club</label>
+            <br>
+            <input type="text" class="form-control w-100" id="exampleInputClub1" name="club" value="<%=player.club%> required">
+            <label for="exampleInputCountry1" class="form-label">Country</label>
+            <br>
+            <input type="text" class="form-control w-100" id="exampleInputCountry1" name="country" value="<%=player.country%>" required>
+            <label for="exampleInputAge1" class="form-label">Age</label>
+            <br>
+            <input type="number" class="form-control w-100" id="exampleInputAge1" name="age" value="<%=player.age%>" required>
+            </div>
+            <br>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+<%-include('../partials/footer')%>

@@ -1,0 +1,79 @@
+<%-include('../partials/header')%>
+    <main class="d-flex flex-column justify-content-center">
+        <div class="container">
+            <%if(success.length!=0){%>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <%=success%>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <%}else if(error.length!=0){%>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <%=error%>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <%}%>
+            <div class="row">
+                <div class="col-6 border-end border-2 d-flex justify-content-center">
+                    <div class="card" style="width: 18rem;">
+                        <img src="<%=player.imgSrc%>" class="card-img-top">
+                        <div class="card-body">
+                          <h5 class="card-title"><%=player.name%></h5>
+                          <p class="card-text"><%=player.description%></p>
+                          <a href="/players" class="btn btn-primary">Go Back</a>
+                          <%if(currentUser && currentUser._id.equals(player.creater._id)){%>
+                            <a href="/players/<%=player._id%>/edit" class="btn btn-warning">Edit</a>
+                            <form action="/players/<%=player._id%>?_method=DELETE" method="post" class="d-inline">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+                          <%}%>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 d-flex flex-column  justify-content-start">
+                    <form action="/players/<%=player._id%>/comments" method="post" class="mb-0">
+                        <div class="mb-1">
+                            <label for="exampleFormControlTextarea1" class="form-label"><b>Add Comment</b></label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" cols="8" name="body">Type your comment here</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Post</button>
+                        <hr>
+                    </form>
+                    
+                    <%if(player.comments.length){%>
+                        <%for(let comment of player.comments){%>
+                            <div class="card mb-3" style="width: 40rem;">
+                                <div class="card-header">
+                                    <%=comment.user.username%>
+                                </div>
+                                <div class="card-body">
+                                    <%if(comment.editable){%>
+                                        <form action="/players/<%=player._id%>/<%=comment._id%>?_method=PATCH" method="post">
+                                            <div class="mb-1">
+                                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" cols="8" name="body"><%=comment.body%></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </form>
+                                    <%}else{%>
+                                        <p class="card-text">
+                                            <%=comment.body%>
+                                        </p>
+                                    <%}%>
+                                    <%if(!comment.editable){%>
+                                        <%if(currentUser && currentUser._id.equals(comment.user._id)){%>
+                                            <a href="/players/<%=player._id%>/<%=comment._id%>/edit" class="btn btn-warning">Edit</a>
+                                        <%}%>
+                                        <%if(currentUser && (currentUser._id.equals(player.creater._id) || currentUser._id.equals(comment.user._id))){%>
+                                            <form action="/players/<%=player._id%>/<%=comment._id%>?_method=DELETE" method="post" class="d-inline">
+                                                <button class="btn btn-danger">Delete</button>
+                                            </form>
+                                        <%}%>
+                                    <%}%>
+                                </div>
+                            </div>
+                        <%}%>
+                    <%}%>
+                </div>
+            </div>
+        </div>
+    </main>
+<%-include('../partials/footer')%>

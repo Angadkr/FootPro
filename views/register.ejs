@@ -1,0 +1,32 @@
+<%-include('../partials/header')%>
+
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="card" style="width: 25rem;">
+            <img src="https://png.pngtree.com/png-vector/20190715/ourlarge/pngtree-add-user-icon-trendy-style-isolated-background-png-image_1542872.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title text-center">Register</h5>
+              <form action="/register" method="post" novalidate class="needs-validation">
+                <div class="mb-3">
+                    <label for="exampleInputUser1" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="exampleInputUser1" name="username" required>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Email address</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" required>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputAge1" class="form-label">Age</label>
+                  <input type="number" class="form-control" id="exampleInputAge1" name="age" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block text-center w-100">Register</button>
+              </form>
+              <a href="/home" class="btn btn-danger mt-1 p-2 btn-block text-center w-100">Go Back</a>
+            </div>
+        </div>
+    </div>
+
+<%-include('../partials/footer')%>
